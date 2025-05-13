@@ -1,0 +1,149 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DadLauncher" Height="550" Width="800"
+        WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        AllowsTransparency="true"
+        Background="Transparent"
+        WindowStyle="none">
+		
+	<Window.Resources>
+        <SolidColorBrush x:Key="DarkModeBrush" Color="#333333"/>
+        <SolidColorBrush x:Key="LightModeBrush" Color="#ffffff"/>
+		<!-- Button Style -->
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#212121"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="MinHeight" Value="40"/>
+            <Setter Property="Margin" Value="10,10,10,10"/>
+            <Setter Property="BorderBrush" Value="#303030"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Content="{TemplateBinding Content}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#303030"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#404040"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Button Style -->
+        <Style x:Key="BaseButtonStyle" TargetType="Button">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Width" Value="45"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Content="{TemplateBinding Content}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#303030"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#404040"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CloseButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="ToolTip" Value="Close"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Content="{TemplateBinding Content}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="red"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#404040"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SettingsButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="ToolTip" Value="Settings"/>
+        </Style>
+        <Style x:Key="PersonalizeButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="ToolTip" Value="Personalize"/>
+        </Style>
+    </Window.Resources>	
+    <Border x:Name="MainBorder" Background="#171717" CornerRadius="8" BorderThickness="1" BorderBrush="#444">
+        <Grid>
+            <Grid Height="30" VerticalAlignment="Top" Margin="0,0,0,10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="TitleButtonMinimize" Style="{StaticResource BaseButtonStyle}" Content="&#xE921;"/>
+                    <Button x:Name="TitleButtonClose" Style="{StaticResource CloseButtonStyle}" Content="&#xE8BB;"/>
+                </StackPanel>
+            </Grid>
+            <Grid Height="30" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button x:Name="BottomSettingsButton" Style="{StaticResource SettingsButtonStyle}" Content="&#xE713;"/>
+                </StackPanel>
+            </Grid>
+            <StackPanel Margin="10,20,10,10" HorizontalAlignment="Center">
+                <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="550">
+                    <Label HorizontalAlignment="Center" Margin="20,20,20,10" VerticalAlignment="Top" Foreground="White">
+                        <Label.Content>
+                            <TextBlock x:Name="StaticLabel" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontSize="16" Foreground="White" Visibility="Collapsed"/>
+                        </Label.Content>
+                    </Label>
+                </DockPanel>
+                <StackPanel Margin="10,10,10,20" HorizontalAlignment="Center">
+                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Button x:Name="InstallButton" Content="Install to C:\Games\" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" />
+                    </DockPanel>
+                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Button x:Name="HiddenButtonInstallLocal" Content="Install Locally" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" />
+                        <Button x:Name="ChoosePathButton" Content="Choose Alternate Path" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" />
+                    </DockPanel>
+                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Button x:Name="HiddenButtonYes" Content="Yes" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" />
+                        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" />
+                    </DockPanel>
+                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Button x:Name="HiddenButtonPlay" Content="Play" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" />
+                    </DockPanel>
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</Window>
