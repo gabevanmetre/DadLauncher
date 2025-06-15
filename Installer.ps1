@@ -806,15 +806,11 @@ function StartGame {
 
 <# END FUNCTIONS #>
 
-$SW_HIDE                    = 0
-$SW_SHOW                    = 5
-$SW_RESTORE                 = 9
+<# CONSTANTS #>
+
 #TODO: Check Registry for 7zip
 $7z                         = "C:\Program Files\7-Zip\7z.exe"
 $7zG                        = "C:\Program Files\7-Zip\7zG.exe"
-
-$scriptPath                 = split-path -parent $MyInvocation.MyCommand.Definition
-$iconPath                   = Join-Path $scriptPath 'icon.ico'
 #TODO: Stop relying on shortcuts, just use the archive as the argument, and then copy shortcuts from the archivePath
 $baseShortcutPath           = "D:\Games\PC\"
 $dadLauncherFolder          = "$env:USERPROFILE\Documents\DadLauncher"
@@ -823,6 +819,7 @@ $documentShortcutFolder     = "$dadLauncherFolder\Shortcuts\"
 $archivePath                = "D:\Games\Archives\"
 $hashPaths                  = "$archivePath\.Hashes"
 $xamlPath                   = "Views\GameLaunchMenu.xaml"
+
 
 if ($args.Length -eq 0) {
     Write-Host "No arguments provided."
@@ -839,8 +836,10 @@ if (-not (Test-Path $7z)) {
 $shortcut = $args[0]
 $databaseID = $args[1]
 $playniteDir = $args[2]
+
 $logoPath = Join-Path $playniteDir "ExtraMetadata\games\$databaseID\Logo.png"
 $imagesPath = Join-Path $playniteDir "library\files\$databaseID\"
+
 $wideImagePath = Get-WideImage
 $originalShortcut = (New-Object -ComObject WScript.Shell).CreateShortcut($shortcut)
 
@@ -994,7 +993,6 @@ if ($archivePathBat) {
 	Write-Warning "Archive not found: $archive"
     [System.Windows.MessageBox]::Show("Archive not found: $archive")
     exit 1
-
 }
 
 if ($archive -match "\[(\d+(\.\d+)*)\]") {
