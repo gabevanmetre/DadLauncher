@@ -51,6 +51,7 @@ Each file is named after the game (e.g., FlatOut.txt) and contains the install p
 The script uses this to determine if the game is already installed and whether to prompt for updates (when a newer version archive is found).
 
 <h3>⚙️ Setup Instructions</h3>
+
     Compile with Win-PS2EXE (but keep reading before you do)
 
     Add DadLauncher.exe to Playnite as a custom emulator.
