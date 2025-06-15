@@ -1,6 +1,6 @@
-<h1>Game Archival & Launch System for Playnite</h1>
+<h1>DadLauncher</h1>
 
-This script provides a streamlined method for archiving and launching PC games through Playnite, supporting .7z, .zip, .rar formats, and .bat scripts for linking to external installers (e.g., GOG offline installers).
+This script provides a streamlined method for archiving and launching PC games through Playnite, supporting .7z and .bat scripts for linking to external installers (e.g., GOG offline installers).
 It is designed for long-term game archival while providing convenient and automated installation and launching.
 
 <h3>🧰 Requirements</h3>
@@ -32,7 +32,7 @@ Archive Format
 
 Archives should be named as:
 
-    GameName [version].7z/.zip/.rar
+    GameName [version].7z/
 
 Example:
 
@@ -51,8 +51,9 @@ Each file is named after the game (e.g., FlatOut.txt) and contains the install p
 The script uses this to determine if the game is already installed and whether to prompt for updates (when a newer version archive is found).
 
 <h3>⚙️ Setup Instructions</h3>
+    Compile with Win-PS2EXE (but keep reading before you do)
 
-    Add GameLaunch Shortcut.lnk to Playnite as a custom emulator.
+    Add DadLauncher.exe to Playnite as a custom emulator.
 
     Set all PC game shortcuts to launch through this emulator.
 
@@ -60,24 +61,21 @@ The script uses this to determine if the game is already installed and whether t
 
     Place archives in the designated archive directory, using the proper naming convention.
 
-    In GameLaunch.ps1, the path to your archives will need to be substituted:
-
-    Line 9:     $archive                  = "D:\Games\Archives\$gameName"
-    Line 469:   $archivePathBat = Get-ChildItem -Path "D:\\Games\\Archives" -Filter "$gameName*.bat"
-    Line 470:   $archivePath7z = Get-ChildItem -Path "D:\\Games\\Archives" -Filter "$gameName*.7z"
-
-    This path will need to be changed to your games install path:
-
-    Line 310:   $exePath = $exePath -replace [regex]::Escape("D:\Games\PC\"), $global:DefaultInstallPath
+    Before compiling:
+    
+    Define your paths (Line 811)
+    For now, the script logic assumes a Shortcut target path "D:\Games\PC\GameName\target.exe" and replaces the "D:\Games\PC\" with your desired path.
+    This is kind of stupid though so I will "eventually" change this logic "later".
+    TODO: Stop using shortcuts to make it easier on everyone
+    TODO: Just scan the registry for 7z and 7zG
+    My archive folder structure is D:\Games\Archives\GameName\GameName [1.2.3].7z
+    TODO: Let the user set their archive top path in the settings
+    This assumes playnite is set as a portable install, you may need to change these paths slightly if yours isn't
+    TOOD: Just check both paths 
 
     Run the game from Playnite — the script will guide you through any required installation or updates.
 
-To enable debug output:
-
-    Open GameLaunch.bat in a text editor
-    Uncomment (remove REM from) the debug line to display the PowerShell window
-
 <h3>📬 Notes</h3>
 
-    I made this script for my convenience, changes to this script are solely for myself. 
-    You are free to use and edit this script as you wish, and feedback is appreciated.
+    Ultimately, I made this script for my convenience, changes to this script are solely for myself. 
+    However, You are free to use and edit this script as you wish, and feedback is appreciated.
